@@ -7,7 +7,10 @@ import styles from '@/styles/Home.module.css'
 
 const inter = Inter({ subsets: ['latin'] })
 
-type Rarity = string
+type Rarity = {
+    rarity: string
+    count: number
+}
 
 type Tables = {
     background: {
@@ -49,7 +52,10 @@ export default function Home() {
     function getTraitValue(metadata: typeof metadataEntries, traitType: keyof typeof metadataEntries[0], traitValue: string) {
         const count = getCount(metadata, traitType, traitValue)
         
-        return `${Number((count / metadataEntries.length) * 100).toFixed(2)}%`
+        return {
+            rarity: `${Number((count / metadataEntries.length) * 100).toFixed(2)}%`,
+            count,
+        }
     }
 
     function getTableData() {
@@ -107,12 +113,15 @@ export default function Home() {
                     {tableData && Object.entries(tableData).map(([traitType, value]) => (
                         <tbody key={traitType}>
                             <tr>
-                                <th colSpan={2}><h2 className={inter.className}>{traitType}</h2></th>
+                                <th><h2 className={inter.className}>{traitType}</h2></th>
+                                <th><h2 className={inter.className}>rarity</h2></th>
+                                <th><h2 className={inter.className}>count</h2></th>
                             </tr>
                             {Object.entries(value).sort().map(([traitKey, traitRarity]) => (
                                 <tr key={traitKey}>
                                     <td>{traitKey}</td>
-                                    <td>{traitRarity}</td>
+                                    <td>{traitRarity.rarity}</td>
+                                    <td>{traitRarity.count}</td>
                                 </tr>
                             ))}
                         </tbody>
