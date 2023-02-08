@@ -1,15 +1,11 @@
+import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import metadataEntries from '../../metadata.json'
 
 import styles from '@/styles/Home.module.css'
-import { useEffect, useState } from 'react'
 
 const inter = Inter({ subsets: ['latin'] })
-
-type Trait = {
-    rarity: string,
-}
 
 type Rarity = string
 
