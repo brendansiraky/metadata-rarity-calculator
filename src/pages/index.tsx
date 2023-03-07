@@ -117,7 +117,7 @@ export default function Home() {
                                 <th><h2 className={inter.className}>rarity</h2></th>
                                 <th><h2 className={inter.className}>count</h2></th>
                             </tr>
-                            {Object.entries(value).sort().map(([traitKey, traitRarity]) => (
+                            {Object.entries(value).sort((a, b) => b[1].count - a[1].count).map(([traitKey, traitRarity]) => (
                                 <tr key={traitKey}>
                                     <td>{traitKey}</td>
                                     <td>{traitRarity.rarity}</td>
