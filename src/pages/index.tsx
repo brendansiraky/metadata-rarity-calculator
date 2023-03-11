@@ -13,6 +13,9 @@ type Rarity = {
 }
 
 type Tables = {
+    faction : {
+        [key: string]: Rarity
+    },
     background: {
         [key: string]: Rarity
     }
@@ -60,8 +63,12 @@ export default function Home() {
 
     function getTableData() {
         
-        const reduced = metadataEntries.reduce((acc, cur) => {
-            
+        const reduced = metadataEntries.reduce((acc, cur) => {            
+            if (!acc.faction[cur.faction]) {
+                const obj = getTraitValue(metadataEntries, 'faction', cur.faction)
+                acc.faction[cur.faction] = obj
+            }
+
             if (!acc.background[cur.background]) {
                 const obj = getTraitValue(metadataEntries, 'background', cur.background)
                 acc.background[cur.background] = obj
@@ -89,6 +96,7 @@ export default function Home() {
 
             return acc
         }, {
+            faction: {},
             background: {},
             base: {},
             eyes: {},
